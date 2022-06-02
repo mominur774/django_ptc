@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="signup">  
+  <div class="container">
+    <h1 class="title text-center my-5">FAQ</h1>
+    <div class="row mb-5">
+        {% for faq in faqs %}
+        <div class="col-lg-5 my-3 mx-auto">
+            <div class="accordion" id="accordion{{faq.id}}">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{faq.id}}" aria-expanded="true" aria-controls="collapse{{faq.id}}">
+                        {{faq.title}}
+                    </button>
+                  </h2>
+                  <div id="collapse{{faq.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion{{faq.id}}">
+                    <div class="accordion-body">
+                        {{faq.description}}
+                    </div>
+                  </div>
+                </div>  
+              </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+{% endblock content %}

@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="signup row ">
+    <div class="container">
+      {% if signup_form.non_field_errors %}
+        {% for error in signup_form.non_field_errors %}
+          <p class="alert alert-danger w-75 mx-auto">{{ error }}</p>
+        {% endfor %}
+      {% endif %}
+
+
+      {% if signup_form.errors %}
+       {% for field in signup_form %}
+           {% for error in field.errors %} 
+              <div class="alert alert-danger">
+                   <strong>{{ error|escape }}</strong>
+              </div>
+           {% endfor %}
+       {% endfor %}
+    {% endif %}
+
+
+      <div class="col-lg-6 mx-auto shadow mb-5 p-5 pt-5">
+          <h3 class="text-center mb-2">Register here</h3>
+          <hr />
+
+          <form action="" method='post' enctype="multipart/form-data" novalidate>
+              {% csrf_token %}
+              <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <label for="phone_number">{{signup_form.phone_number.label}}</label>
+                    {{signup_form.phone_number}}
+                    <small class="text-danger">{{signup_form.phone_number.errors}}</small>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="referral_code">Refferal Code</label>
+                    <input type="text" name="referral_code" class="form-control" id="">
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <label for="first_name">{{signup_form.first_name.label}}</label>
+                    {{signup_form.first_name}}
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="last_name">{{signup_form.last_name.label}}</label>
+                    {{signup_form.last_name}}
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-12">
+                    <label for="email">{{signup_form.email.label}}</label>
+                    {{signup_form.email}} {{signup_form.email.errors}}
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <label for="password1">{{signup_form.password1.label}}</label>
+                    {{signup_form.password1}}
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="password2">{{signup_form.password2.label}}</label>
+                    {{signup_form.password2}}
+                    <small class="text-danger">{{signup_form.password2.errors}}</small>
+                  </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <label for="transaction_screenshot">{{check_user_form.transaction_screenshot.label}}</label>
+                  {{check_user_form.transaction_screenshot}}
+                </div>
+              </div>
+              <input class="btn btn-primary w-100 my-3" type="submit" value="Register">
+              <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">login</a></p>
+          </form>
+      </div>
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+
+</div>
+
+
+{% endblock content %}

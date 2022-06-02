@@ -1,0 +1,37 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block admin_content %}
+
+{% if payment_requests %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Withdraw amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payment_requests %}
+        <tr>
+            <td>{{ payment.user.get_full_name }}</td>
+            <td>{{ payment.user.phone_number }}</td>
+            <td>{{ payment.amount }} tk</td>
+            
+            <td>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ payment.id }}" name="id">
+                    <input type="submit" class="btn btn-danger btn-sm" value="Unpaid" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <h3 class="text-center mt-5">No withdraw request left</h3>
+{% endif %}
+
+{% endblock admin_content %}

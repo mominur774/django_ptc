@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="login row ">
+    <div class="col-lg-6 offset-sm-3 shadow mb-5 p-5 pt-5">
+        <h3 class="text-center mb-3">Change your password</h3>
+        <hr />
+        <form action="" method='post'>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="old_password" class="form-label">{{form.old_password.label}}</label>
+                {{form.old_password}}
+            </div>
+            <div class="mb-3">
+                <label for="new_password1" class="form-label">{{form.new_password1.label}}</label>
+                {{form.new_password1}}
+            </div>
+            <div class="mb-3">
+                <label for="new_password2" class="form-label">{{form.new_password2.label}}</label>
+                {{form.new_password2}}
+            </div>
+            <input class="btn btn-primary w-100 my-3" type="submit" value="Change Password">
+            <a href="/">Cancel</a>
+        </form>
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+
+{% endblock content %}

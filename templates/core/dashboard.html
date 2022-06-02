@@ -1,0 +1,90 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="signup">
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="alert alert-success w-75 mx-auto">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <h1 class="title text-center my-5">Dashboard</h1>
+        <div class="row">
+            <div class="col-lg-10 col-sm-12 offset-1">
+                <table class="table w-75 mx-auto text-light text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Total Earning</th>
+                            <th scope="col">Ad left for today</th>
+                            <th scope="col">Daily Ad limit</th>
+                            {% comment %} <th scope="col">Subscription Status</th> {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ request.user.get_full_name }}</td>  
+                            <td>{{ request.user.total_earning }}</td>
+                            <td>{{ request.user.ad_limit }}</td>
+                            <td>{{ subscribed.pricing.ad_limit }}</td>
+                            {% comment %} <td>{{ request.user.is_subscribed }}</td> {% endcomment %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if request.user.is_subscribed %}
+            <h4 class="text-center mb-5 mt-3 p-3 shadow w-50 mx-auto">Click the ad's below for earn</h4>
+            <div class="text-center mb-5">
+                <ul class="list-group w-75 mx-auto">
+                    {% if ads_per_day %}
+                        {% for ad in ads_per_day %}
+                            <form action="{% url 'decrese-ad' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ad.url}}" name="url">
+                                <input class="link-btn" type="submit" value="{{ ad.url }}">
+                            </form>           
+                        {% endfor %}
+
+                        <nav class="mx-auto my-5" aria-label="Page navigation example">
+                            <ul class="pagination">
+
+                            {% if ads_per_day.has_previous %}
+                              <li class="page-item">
+                                <a class="page-link" href="?page={{ ads_per_day.previous_page_number }}" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="?page={{ ads_per_day.previous_page_number }}">{{ ads_per_day.previous_page_number }}</a></li>
+                            {% endif %}
+
+                            <li class="page-item active"><a class="page-link" href="#">{{ ads_per_day.number }}</a></li>
+
+                            {% if ads_per_day.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ ads_per_day.next_page_number }}">{{ ads_per_day.next_page_number }}</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="?page={{ ads_per_day.next_page_number }}" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            {% endif %}
+
+                            </ul>
+                        </nav>
+
+                    {% else %}
+                            <h5>No more add for today</h5>
+                    {% endif %}
+                </ul>
+            </div>
+
+        {% endif %}
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+
+{% endblock content %}

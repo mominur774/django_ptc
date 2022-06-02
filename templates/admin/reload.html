@@ -1,0 +1,17 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block admin_content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <p class="alert alert-info w-75">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+<form class="mx-auto" action="" method="post">
+    {% csrf_token %}
+    <p class="text-center">By clicking the reload button users ad limit will increase to his/her plan's maximum ad limit.<br>(<span class="text-danger">You should click the button once per day</span>)</p>
+    <input class="btn btn-warning w-50 mx-5" type="submit" value="Reload">
+</form>
+
+{% endblock admin_content %}
+

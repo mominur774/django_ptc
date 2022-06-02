@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<section id="about-us">
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+            <p class="alert alert-success w-75 mx-auto">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+      <h1 class="title text-center">Choose The Most Suitable Plan For You</h1>
+        <div class="row">
+          {% for pricing in all_pricing %}
+          <div class="col-lg-4 col-md-6 mx-auto mb-3">
+            <div class="plan my-3 text-center shadow">
+              <div class="plan-header mb-2 py-3">
+                <h5 class="fw-bold">{{ pricing.plan_name }}</h5>
+                <div class="separator"></div>
+                <p><span class="amount fw-bold">{{ pricing.amount }}</span> tk</p>
+              </div>
+              <div class="plan-body p-3">
+                <p>Subscription Fee : {{ pricing.amount }} tk</p> 
+                <hr>
+                <p>Earn per day : {{ pricing.earn_per_day }} tk</p> 
+                <hr>
+                <p>Minimum Withdraw : {{ pricing.minimum_withdraw }} tk</p>
+                <hr>
+                <p>Pay certain amount : 01234567891</p>
+                <hr>
+                <a class="btn btn-danger w-100 my-3" href="{% url 'get_plan' pricing.slug %}">Subscribe Now</a>
+              </div>
+            </div>          
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+  </section>
+
+
+{% endblock content %}

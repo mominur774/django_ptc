@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="login">
+    <div class="row">
+        <div class="col-lg-8 offset-2">
+            <h4 class="text-center my-5 p-5 shadow">
+                An email send to your mail. Check your mail and click the following link.
+            </h4>
+        </div>
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="login">
+    <div class="row">
+        <div class="col-lg-8 offset-2 p-3 mb-5 shadow">
+            <h3 class="text-center my-5">Password Reset Successfully!</h3>
+            <p class="text-center">Login again. <a href="{% url 'login' %}">login</a></p>
+        </div>
+    </div>
+<img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+{% endblock content %}

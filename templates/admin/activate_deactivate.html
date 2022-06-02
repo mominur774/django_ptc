@@ -1,0 +1,48 @@
+{% extends 'admin/admin_base.html' %}
+
+
+{% block admin_content %}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Activate</th>
+            <th>Deactivate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.get_full_name }}</td>
+            <td>{{ user.phone_number }}</td>
+            
+            <td>
+                {% if not user.is_active %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="activate" name="user_type">
+                    <input type="hidden" value="{{ user.id }}" name="id">
+                    <input type="submit" class="btn btn-success btn-sm" value="Activate" />
+                </form>
+                {% endif %}
+            </td>
+            <td>
+                {% if user.is_active %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="deactivate" name="user_type">
+                    <input type="hidden" value="{{ user.id }}" name="id">
+                    <input type="submit" class="btn btn-danger btn-sm" value="Deactivate" />
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock admin_content %}
+

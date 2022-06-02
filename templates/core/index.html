@@ -1,0 +1,136 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section id="banner">
+      <div class="container">
+        <div class="row">
+        <div class="col-md-6">
+          <p class="promo-title">Enlarge Your Network And Get More Commissions</p>
+          <p>Win more commissions by making more members and increase your capital. And you can earn more money by viewing advertisements on our site.</p>
+          {% comment %} <a href=""><img src="{% static 'images/play.png' %}" class="play-btn"> Watch More</a> {% endcomment %}
+          <div class="d-flex">
+            <a href="{% url 'pricing' %}">
+              <button type="button" class="btn btns start-btn">          
+                Let's Start
+              </button>
+            </a>
+            <a href="{% url 'pricing' %}">
+              <button type="button" class="btn btns choose-plan mx-2">
+                Choose plan
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6" text-center>
+          <img src="{% static 'images/home2.png' %}" class="img-fluid">
+        </div>
+      </div>
+      </div>
+      <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+    </section>
+
+    <section id="services">
+      <div class="container text-center">
+        <h1 class="title">WHAT WE DO ?</h1>
+        <div class="row text-center">
+          <div class="col-md-4 services">
+          <img src="{% static 'images/service1.png' %}" class="service-img">
+          <h4>Growth Marketing</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+        </div>
+        <div class="col-md-4 services">
+          <img src="{% static 'images/service2.png' %}" class="service-img">
+          <h4>Online Branding</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+        </div>
+        <div class="col-md-4 services">
+          <img src="{% static 'images/service3.png' %}" class="service-img">
+          <h4>Animated Ads</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+        </div>
+        </div>
+        <button type="button" class="btn btn-primary">All services</button>
+      </div>
+    </section>
+
+    <section id="about-us">
+      <div class="container">
+        <h1 class="title text-center">WHY CHOOSE US ?</h1>
+          <div class="row">
+            <div class="col-md-6 about-us">
+              <p class="about-title">Why we're different</p>
+              <ul>
+                <li>Understand our client's goal first</li>
+                <li>Belive in doing business goal honesty</li>
+                <li>We deliver on time</li>
+                <li>We create a wining content strategy</li>
+                <li>We protect your online reputation</li>
+                <li>We create a wining content strategy</li>
+                <li>We protect your online reputation</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <img src="{% static 'images/network.png' %}" class="img-fluid">
+            </div>
+          </div>
+      </div>
+    </section>
+
+    {% if not request.user.is_subscribed %}
+    <section id="about-us">
+      <div class="container">
+        <h1 class="title text-center">Choose The Most Suitable Plan For You</h1>
+          <div class="row">
+            {% for pricing in all_pricing %}
+            <div class="col-lg-4 col-md-6 mx-auto mb-3">
+              <div class="plan my-3 text-center shadow">
+                <div class="plan-header mb-2 py-3">
+                  <h5 class="fw-bold">{{ pricing.plan_name }}</h5>
+                  <div class="separator"></div>
+                  <p><span class="amount fw-bold">{{ pricing.amount }}</span> tk</p>
+                </div>
+                <div class="plan-body p-3">
+                  <p>Subscription Fee : {{ pricing.amount }} tk</p> 
+                  <hr>
+                  <p>Earn per day : {{ pricing.earn_per_day }} tk</p> 
+                  <hr>
+                  <p>Minimum Withdraw : {{ pricing.minimum_withdraw }} tk</p>
+                  <hr>
+                  <p>Pay certain amount : 01234567891</p>
+                  <hr>
+                  <a class="btn btn-danger w-100 my-3" href="{% url 'get_plan' pricing.slug %}">Subscribe Now</a>
+                </div>
+              </div>          
+            </div>
+            {% endfor %}
+          </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section id="testimonials">
+      <div class="container">
+        <h1 class="title text-center">WHAT CLIENT'S SAY</h1>
+        <div class="row offset-1">
+          <div class="col-sm-5 testimonials">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <img src="{% static 'images/user1.jpg' %}">
+            <p class="user-details"><b>Angelina</b><br>Co-founder at xyz</p>
+          </div>
+          <div class="col-sm-5 testimonials">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <img src="{% static 'images/user2.jpg' %}">
+            <p class="user-details"><b>John Doe</b><br>Director at xyz</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% endblock content %}

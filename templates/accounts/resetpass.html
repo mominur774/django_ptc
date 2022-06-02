@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="login">
+    <div class="col-lg-6 mx-auto shadow mb-5 p-5 pt-5">
+        <h3 class="text-center mb-3">Enter your email here</h3>
+        <hr />
+        <form action="" method='post'>
+            {% csrf_token %}
+            {{form.as_p}}
+            <input class="btn btn-primary w-100 my-3" type="submit" value="Send">
+            <a class="" href="{% url 'login' %}">Cancel</a>
+        </form>
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+{% endblock content %}

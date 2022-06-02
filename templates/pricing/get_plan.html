@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="login">
+    <div class="container">
+        <form action="" class="mt-5" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6 mb-5">
+                    <h4 class="mb-5">Add your billing address</h4>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your full name" name="fullname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" placeholder="Enter your number that you will pay" name="phone_number">
+                    </div>
+                    <p class="mt-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed exercitationem cumque ab itaque saepe culpa quae atque, nam natus eaque similique, aperiam in et quaerat unde libero autem amet. Tempore harum quasi ab consectetur! Corporis ut ipsa, magni eius praesentium tempore vel in illum fugit enim qui at reprehenderit. Quas suscipit ut ipsum aliquid laudantium dignissimos sint aperiam voluptas.</p>
+                </div>
+                <div class="col-lg-6 mb-5">
+                    <h4 class="mb-5">Select a payment method</h4>
+                    <table class="table text-light text-center mt-5 mb-5">
+                        <thead>
+                            <tr>
+                                <th>Plan Name</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ pricing.plan_name }}</td>
+                                <td>{{ pricing.amount }} tk</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Choose a payment method</label>
+                        <div class="form-check">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" value="Bkash" type="radio" name="payment_method" id="bkash">
+                                <label class="form-check-label" for="bkash">
+                                  <img class="payment_method" src="{% static 'images/payment_method/bkash.png' %}" alt="">
+                                </label>
+                              </div>
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" value="Rocket" type="radio" name="payment_method" id="rocket">
+                                <label class="form-check-label" for="rocket">
+                                    <img class="payment_method" src="{% static 'images/payment_method/rocket.png' %}" alt="">
+                                </label>
+                              </div>
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" value="Nagad" type="radio" name="payment_method" id="nagad">
+                                <label class="form-check-label" for="nagad">
+                                    <img class="payment_method" src="{% static 'images/payment_method/nagad.png' %}" alt="">
+                                </label>
+                              </div>
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" value="Visa" type="radio" name="payment_method" id="visa">
+                                <label class="form-check-label" for="visa">
+                                    <img class="payment_method" src="{% static 'images/payment_method/visa.png' %}" alt="">
+                                </label>
+                              </div>
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" value="Master Card" type="radio" name="payment_method" id="mastercard">
+                                <label class="form-check-label" for="mastercard">
+                                    <img class="payment_method" src="{% static 'images/payment_method/mastercard.png' %}" alt="">
+                                </label>
+                              </div>
+                        </div>
+                        
+                    </div>
+                    <input type="submit" class="btn btn-primary w-100 my-5" value="Checkout">
+                </div>
+            </div>
+        </form>
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+
+{% endblock content %}

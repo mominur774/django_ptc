@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="login row">
+    <div class="col-lg-6 mx-auto shadow mb-5 p-5 pt-5">
+        <h3 class="text-center">Your profile information</h3>
+        <hr>
+        <div class="text-center">
+            <h5>Referral Code</h5>
+            <p>{{ referral_code.referral_code }}</p>
+            <h5>Full Name</h5>
+            <p>{{ user.get_full_name }}</p>
+            <h5>Email</h5>
+            <p>{{ user.email }}</p>
+            <hr>
+            <small>If your amount is more than your plan's maximum withdraw amount then you can withdraw.</small>
+            {% if request.user.total_earning > subscribed.pricing.minimum_withdraw %}
+            <a class="btn btn-primary w-100" href="{% url 'withdraw' %}">Withdraw</a>
+            {% else %}
+            <a class="btn disabled btn-primary w-100" href="">Withdraw</a>
+            {% endif %}
+        </div>
+    </div>
+    <img src="{% static 'images/wave1.png' %}" class="bottom-img">
+</div>
+
+
+{% endblock content %}
