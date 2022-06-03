@@ -21,11 +21,8 @@ class SignUpForm(UserCreationForm):
     def clean(self):
         cleaned_data = super().clean()
         email = self.cleaned_data.get('email', "")
-        phone_number = self.cleaned_data.get('phone_number', "")
-        if User.objects.filter(phone_number=phone_number).exists():
-            raise forms.ValidationError("Phone number is already taken!")
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("Email is already taken!")
+            raise ValidationError("Email is already taken!")
 
 
 class LoginForm(AuthenticationForm):

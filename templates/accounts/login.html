@@ -4,6 +4,11 @@
 
 <div class="login row ">
     <div class="container">
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="alert alert-danger w-50 mx-auto">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
         {% if messages %}
             {% for message in messages %}
                 <p class="alert alert-success w-75 mx-auto">{{ message }}</p>

@@ -15,6 +15,7 @@ def register(request):
         check_user_form = CheckUserForm(data=request.POST, files=request.FILES)
         referral_code = request.POST.get('referral_code')
 
+        print(signup_form)
         if signup_form.is_valid() and check_user_form.is_valid():
             user = signup_form.save(commit=False)
             if UserReferralCode.objects.filter(referral_code=referral_code).exists():
@@ -31,9 +32,9 @@ def register(request):
             check_user.save()
             messages.success(request, 'Account created successfully!')
             return redirect('/accounts/login')
-
-    signup_form = SignUpForm()
-    check_user_form = CheckUserForm()
+    else:
+        signup_form = SignUpForm()
+        check_user_form = CheckUserForm()
     # referral_code = ReferralCodeForm()
     context = {
         'signup_form': signup_form,
