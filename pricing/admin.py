@@ -1,5 +1,5 @@
 from django.contrib import admin
-from pricing.models import Pricing, AdLink, AdLimit
+from pricing.models import Pricing, AdLink
 
 # Register your models here.
 
@@ -15,8 +15,3 @@ class PricingAdmin(admin.ModelAdmin):
 @admin.register(AdLink)
 class LinkAdmin(admin.ModelAdmin):
     list_display = ('url', )
-
-
-@admin.register(AdLimit)
-class LimitAdmin(admin.ModelAdmin):
-    list_display = ('pricing', 'ad_limit')

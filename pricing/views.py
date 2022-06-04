@@ -8,10 +8,10 @@ from django.contrib import messages
 # Create your views here.
 
 
+@login_required
 def pricing_plan(request):
     if not request.user.is_subscribed:
         all_pricing = Pricing.objects.all()
-
         context = {
             'all_pricing': all_pricing
         }

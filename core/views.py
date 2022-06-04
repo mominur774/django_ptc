@@ -47,6 +47,7 @@ def dashboard(request):
     return render(request, 'core/dashboard.html', context)
 
 
+@login_required
 def decrese_ad(request):
     if request.method == 'POST':
         url = request.POST.get('url')
@@ -63,6 +64,7 @@ def decrese_ad(request):
     return redirect(url)
 
 
+@login_required
 def profile(request):
     user = User.objects.get(pk=request.user.pk)
     referral_code = UserReferralCode.objects.get(user=user)

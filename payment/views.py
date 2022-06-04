@@ -3,10 +3,12 @@ from payment.forms import SubscribedForm
 from accounts.models import User
 from payment.models import Payment, Withdraw
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
+@login_required
 def place_order(request):
     if request.method == 'POST':
         user = User.objects.get(pk=request.user.pk)
@@ -32,6 +34,7 @@ def place_order(request):
     return render(request, 'payment/place_order.html', context)
 
 
+@login_required
 def withdraw(request):
     if request.method == 'POST':
         withdraw_amount = request.POST.get('withdraw_amount')
