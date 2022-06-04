@@ -4,6 +4,11 @@
 {% block content %}
 
 <div class="login row">
+    {% if messages %}
+        {% for message in messages %}
+            <p class="alert alert-info w-50 mx-auto">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
     <div class="col-lg-6 mx-auto shadow mb-5 p-5 pt-5">
         <h3 class="text-center">Your profile information</h3>
         <hr>
@@ -16,7 +21,7 @@
             <p>{{ user.email }}</p>
             <hr>
             <small>If your amount is more than your plan's maximum withdraw amount then you can withdraw.</small>
-            {% if request.user.total_earning > subscribed.pricing.minimum_withdraw %}
+            {% if not request.user.total_earning > subscribed.pricing.minimum_withdraw %}
             <a class="btn btn-primary w-100" href="{% url 'withdraw' %}">Withdraw</a>
             {% else %}
             <a class="btn disabled btn-primary w-100" href="">Withdraw</a>

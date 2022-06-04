@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from payment.forms import SubscribedForm
 from accounts.models import User
@@ -39,9 +40,9 @@ def withdraw(request):
     if request.method == 'POST':
         withdraw_amount = request.POST.get('withdraw_amount')
         if int(withdraw_amount) > int(request.user.total_earning):
-            print("Don't have enough amount")
+            messages.warning(request, "You don't have enough amount")
         elif int(withdraw_amount) < 1:
-            print("Invalid amount")
+            messages.warning(request, "Invalid amount")
         else:
             user = User.objects.get(pk=request.user.pk)
             Withdraw.objects.create(
