@@ -11,6 +11,7 @@ class User(AbstractUser):
     is_subscribed = models.BooleanField(default=False)
     ad_limit = models.IntegerField(blank=True, null=True)
     total_earning = models.FloatField(default=0.0)
+    otp = models.CharField(max_length=10, blank=True, null=True)
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = []
@@ -22,16 +23,6 @@ class User(AbstractUser):
 
     def full_name(self):
         return self.first_name + self.last_name
-
-
-class CheckUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    transaction_screenshot = models.ImageField(upload_to="transaction")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.user}'s transaction screenshot"
 
 
 class UserReferralCode(models.Model):

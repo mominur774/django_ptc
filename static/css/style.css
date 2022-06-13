@@ -20,6 +20,7 @@ body {
 }
 
 .navbar-brand img {
+  width: 80px;
   height: 40px;
   padding-left: 20px;
 }
@@ -194,7 +195,7 @@ body {
 }
 
 .footer-box img {
-  width: 120px;
+  width: 80px;
   margin-bottom: 20px;
 }
 

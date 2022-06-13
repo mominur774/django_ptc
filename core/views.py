@@ -4,9 +4,10 @@ from pricing.models import Pricing
 from django.contrib.auth.decorators import login_required
 from pricing.models import AdLink
 import time
-from accounts.models import CheckUser, User, UserReferralCode
+from accounts.models import User, UserReferralCode
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 
@@ -61,6 +62,7 @@ def decrese_ad(request):
             user.total_earning += 10
         user.save()
         time.sleep(5)
+    # return redirect('/dashboard')
     return redirect(url)
 
 
@@ -68,7 +70,11 @@ def decrese_ad(request):
 def profile(request):
     user = User.objects.get(pk=request.user.pk)
     referral_code = UserReferralCode.objects.get(user=user)
-    subscribed = Subscribed.objects.get(user=user)
+    subscribed = {}
+    try:
+        subscribed = Subscribed.objects.get(user=user)
+    except Exception as e:
+        pass
 
     context = {
         'user': user,
@@ -139,24 +145,20 @@ def accept_payment(request):
 
 
 @login_required
-def accept_user(request):
+def accept_subscription(request):
     if request.user.is_superuser:
-        transaction_screenshot = []
-        users = User.objects.filter(is_active=False)
-        for user in users:
-            screenshot = CheckUser.objects.get(user=user)
-            transaction_screenshot.append(screenshot)
+        subscribed_users = Subscribed.objects.filter(
+            Q(is_subscribed=True) &
+            Q(user__is_subscribed=False)
+        )
         if request.method == 'POST':
-            user_id = request.POST.get('id')
-            print(user_id)
+            user_id = request.POST.get('user_id')
             user = User.objects.get(pk=user_id)
-            user.is_active = True
+            user.is_subscribed = True
             user.save()
-            return redirect('/accept-user')
         context = {
-            'users': transaction_screenshot,
-
+            'subscribed_users': subscribed_users
         }
     else:
         return redirect('/accounts/login')
-    return render(request, 'admin/accept_user.html', context)
+    return render(request, 'admin/accept_subscription.html', context)

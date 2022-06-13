@@ -37,6 +37,9 @@ class Subscribed(models.Model):
         null=True
     )
     trxid = models.CharField(max_length=100, unique=True)
+    transaction_screenshot = models.ImageField(
+        upload_to='transaction', null=True, blank=True)
+    is_subscribed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from accounts.forms import SignUpForm, LoginForm, UserPasswordChangeForm, CheckUserForm, ResetForm, ResetConfirmForm
+from accounts.forms import SignUpForm, LoginForm, UserPasswordChangeForm, ResetForm, ResetConfirmForm
 from django.contrib.auth import authenticate, login, logout
 import random
 from accounts.models import User, UserReferralCode
@@ -12,11 +12,9 @@ from django.contrib import messages
 def register(request):
     if request.method == 'POST':
         signup_form = SignUpForm(request.POST)
-        check_user_form = CheckUserForm(data=request.POST, files=request.FILES)
         referral_code = request.POST.get('referral_code')
 
-        print(signup_form)
-        if signup_form.is_valid() and check_user_form.is_valid():
+        if signup_form.is_valid():
             user = signup_form.save(commit=False)
             if UserReferralCode.objects.filter(referral_code=referral_code).exists():
                 referral_user = UserReferralCode.objects.get(
@@ -24,22 +22,16 @@ def register(request):
                 us = User.objects.get(pk=referral_user.user.pk)
                 us.total_earning += 100
                 us.save()
+            user.otp = str(random.randint(1000, 9999))
             user.is_active = False
             user.save()
-
-            check_user = check_user_form.save(commit=False)
-            check_user.user = user
-            check_user.save()
-            messages.success(request, 'Account created successfully!')
-            return redirect('/accounts/login')
+            messages.success(
+                request, 'Account created successfully!')
+            return redirect(f'/accounts/confirm-email/?phone={user.phone_number}')
     else:
         signup_form = SignUpForm()
-        check_user_form = CheckUserForm()
-    # referral_code = ReferralCodeForm()
     context = {
         'signup_form': signup_form,
-        'check_user_form': check_user_form,
-        # 'referral_code': referral_code
     }
     return render(request, 'accounts/register.html', context)
 
@@ -89,3 +81,20 @@ class UserPasswordResetView(PasswordResetView):
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'accounts/resetconfirm.html'
     form_class = ResetConfirmForm
+
+
+def confirm_mail_view(request):
+    phone = request.GET.get('phone')
+    if request.method == 'POST':
+        user = User.objects.get(phone_number=phone)
+        otp = request.POST.get('otp')
+        if user.otp == otp:
+            user.is_active = True
+            user.save()
+            messages.success(
+                request, 'Your account activated please login to continue.')
+            return redirect('/accounts/login')
+        else:
+            messages.error(
+                request, "OTP doesn't match. Please enter correct OTP.")
+    return render(request, 'accounts/confirmemail.html')

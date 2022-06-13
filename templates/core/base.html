@@ -22,7 +22,7 @@
     <section id="nav-bar">
       <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img src="{% static 'images/demo-logo.png' %}"></a>
+          <a class="navbar-brand" href="/"><img src="{% static 'images/logo.jpg' %}"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button> 
@@ -91,15 +91,14 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4 footer-box">
-            <img src="{% static 'images/demo-logo.png' %}">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <a href="/"><img src="{% static 'images/logo.jpg' %}"></a>
+            <p>Win more commissions by making more members and increase your capital. And you can earn more money by viewing advertisements on our site.</p>
           </div>
           <div class="col-md-4 footer-box">
             <p><b>CONTACT US</b></p>
-            <p>World Trade Centre, Bangalore</p>
-            <p>+1 0123456789</p>
-            <p>xyz@gmail.com</p>
+            <p>Dhaka, Bangladesh</p>
+            <p>+88 01783701051</p>
+            <p>alibabacrawn@gmail.com</p>
           </div>
           <div class="col-md-4 footer-box">
             <p><b>SUBSCRIBE NEWSLETTER</b></p>
@@ -111,6 +110,8 @@
         <p class="copyright">Copyright &copy; 2022</p>
       </div>
     </section>
+
+    {% block script %}{% endblock script %}
 
     <script src="{% static 'js/smooth-scroll.js' %}"></script>
     <script>

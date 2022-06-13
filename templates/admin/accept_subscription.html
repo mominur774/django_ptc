@@ -1,0 +1,35 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+
+{% block admin_content %}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>TrxID</th>
+            <th>Transaction Screenshot</th>
+            <th>Subscription Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subscribed_user in subscribed_users %}
+            <td>{{subscribed_user.user.get_full_name}}</td>
+            <td>{{subscribed_user.user.phone_number}}</td>
+            <td>{{subscribed_user.trxid}}</td>
+            <td><a href="{{ subscribed_user.transaction_screenshot.url }}">Screenshot</a></td>
+            <td>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{subscribed_user.user.id}}" name="user_id">
+                    <input type="submit" class="btn btn-success btn-sm" value="Accept Subscription" />
+                </form>
+            </td>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock admin_content %}
+

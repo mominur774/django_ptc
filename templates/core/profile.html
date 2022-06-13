@@ -21,7 +21,7 @@
             <p>{{ user.email }}</p>
             <hr>
             <small>If your amount is more than your plan's maximum withdraw amount then you can withdraw.</small>
-            {% if not request.user.total_earning > subscribed.pricing.minimum_withdraw %}
+            {% if request.user.total_earning > subscribed.pricing.minimum_withdraw %}
             <a class="btn btn-primary w-100" href="{% url 'withdraw' %}">Withdraw</a>
             {% else %}
             <a class="btn disabled btn-primary w-100" href="">Withdraw</a>

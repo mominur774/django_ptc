@@ -14,14 +14,15 @@ def place_order(request):
     if request.method == 'POST':
         user = User.objects.get(pk=request.user.pk)
         payment = Payment.objects.get(user=user)
-        form = SubscribedForm(request.POST)
+        form = SubscribedForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             subscribe = form.save(commit=False)
             subscribe.user = request.user
             subscribe.pricing = payment.pricing
+            subscribe.is_subscribed = True
             subscribe.save()
 
-            user.is_subscribed = True
+            # user.is_subscribed = True
             user.ad_limit = subscribe.pricing.ad_limit
             user.save()
             messages.success(

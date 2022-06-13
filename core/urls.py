@@ -10,8 +10,9 @@ urlpatterns = [
 
     # admin panel
     path('reload/', views.reload_site, name="reload"),
-    path('accept-user/', views.accept_user, name="accept-user"),
     path('activate-deactivate/', views.activate_deactivate,
          name="activate-deactivate"),
     path('accept-payment/', views.accept_payment, name="accept-payment"),
+    path('accept-subscription/', views.accept_subscription,
+         name="accept-subscription"),
 ]

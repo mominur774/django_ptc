@@ -10,13 +10,17 @@
     {% endif %}
     <div class="col-lg-6 offset-sm-3 shadow mb-5 p-5 pt-5">
         <h5 class="text-center">Number</h5>
-        <h1 class="text-center">01234567890</h1>
+        <h1 class="text-center">01783701051</h1>
         <hr>
-        <form action="" method="post">
+        <form action="" method="post"  enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="trxid" class="form-label">{{form.trxid.label}}</label>
                 {{form.trxid}}
+            </div>
+            <div class="mb-3">
+                <label for="transaction_screenshot" class="form-label">{{form.transaction_screenshot.label}}</label>
+                {{form.transaction_screenshot}}
             </div>
             <input class="btn btn-success w-100 my-3" type="submit" value="Send">
         </form>

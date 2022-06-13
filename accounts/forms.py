@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from accounts.models import User, CheckUser
+from accounts.models import User
 
 
 class SignUpForm(UserCreationForm):
@@ -45,24 +45,6 @@ class UserPasswordChangeForm(PasswordChangeForm):
         'class': 'form-control'
     }), label="Confirm New Password")
 
-
-class CheckUserForm(forms.ModelForm):
-    class Meta:
-        model = CheckUser
-        fields = ('transaction_screenshot', )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control'
-            })
-
-
-# class ReferralCodeForm(forms.Form):
-#     referral_code = forms.CharField(
-#         max_length=255, label="Referral Code", widget=forms.TextInput(attrs={'class': 'form-control', 'required': ''}))
 
 class ResetForm(PasswordResetForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={

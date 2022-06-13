@@ -56,12 +56,6 @@
                     <small class="text-danger">{{signup_form.password2.errors}}</small>
                   </div>
               </div>
-              <div class="row mb-2">
-                <div class="col-sm-12">
-                  <label for="transaction_screenshot">{{check_user_form.transaction_screenshot.label}}</label>
-                  {{check_user_form.transaction_screenshot}}
-                </div>
-              </div>
               <input class="btn btn-primary w-100 my-3" type="submit" value="Register">
               <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">login</a></p>
           </form>

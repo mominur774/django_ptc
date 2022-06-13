@@ -45,7 +45,7 @@
                             <form action="{% url 'decrese-ad' %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" value="{{ad.url}}" name="url">
-                                <input class="link-btn" type="submit" value="{{ ad.url }}">
+                                <input class="link-btn" id="ad-click" type="submit" value="{{ ad.url }}">
                             </form>           
                         {% endfor %}
 
@@ -88,3 +88,15 @@
 
 
 {% endblock content %}
+
+{% block script %}
+
+<script type="text/javascript">
+    let adButton = document.getElementById('ad-click');
+    adButton.addEventListener('click', function(e){
+        e.preventDefault();
+        alert("Hello")
+    })
+</script>
+
+{% endblock script %}

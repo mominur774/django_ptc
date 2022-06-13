@@ -5,10 +5,11 @@ from payment.models import Subscribed
 class SubscribedForm(forms.ModelForm):
     class Meta:
         model = Subscribed
-        fields = ('trxid', )
+        fields = ('trxid', 'transaction_screenshot', )
 
         labels = {
-            'trxid': 'TrxID'
+            'trxid': 'TrxID',
+            'transaction_screenshot': 'Transaction Screenshot'
         }
 
     def __init__(self, *args, **kwargs):
