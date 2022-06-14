@@ -61,7 +61,7 @@ def decrese_ad(request):
         else:
             user.total_earning += 10
         user.save()
-        time.sleep(5)
+        time.sleep(4)
     # return redirect('/dashboard')
     return redirect(url)
 

@@ -37,7 +37,10 @@
             </div>
         </div>
         {% if request.user.is_subscribed %}
-            <h4 class="text-center mb-5 mt-3 p-3 shadow w-50 mx-auto">Click the ad's below for earn</h4>
+            <div class="mb-5 mt-3 p-3 shadow w-50 mx-auto">
+                <h4 class="text-center">Click the ad's below for earn</h4>
+                <p class="text-center">After click any ad we will redirect you in 10 seconds</p>
+            </div>
             <div class="text-center mb-5">
                 <ul class="list-group w-75 mx-auto">
                     {% if ads_per_day %}
@@ -46,7 +49,7 @@
                                 {% csrf_token %}
                                 <input type="hidden" value="{{ad.url}}" name="url">
                                 <input class="link-btn" id="ad-click" type="submit" value="{{ ad.url }}">
-                            </form>           
+                            </form>  
                         {% endfor %}
 
                         <nav class="mx-auto my-5" aria-label="Page navigation example">
@@ -88,15 +91,3 @@
 
 
 {% endblock content %}
-
-{% block script %}
-
-<script type="text/javascript">
-    let adButton = document.getElementById('ad-click');
-    adButton.addEventListener('click', function(e){
-        e.preventDefault();
-        alert("Hello")
-    })
-</script>
-
-{% endblock script %}
